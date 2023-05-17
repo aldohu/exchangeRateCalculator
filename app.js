@@ -1,6 +1,7 @@
 const currencyOneElement = document.getElementById('currency-one');
 const currencyTwoElement = document.getElementById('currency-two');
-
+const rateElement = document.querySelector('.rate');
+const swapElement = document.querySelector('#swap');
 // Get the amount one and amount two elements
 const amountOneElement = document.getElementById('amount-one');
 const amountTwoElement = document.getElementById('amount-two');
@@ -28,6 +29,9 @@ const fetchData = async () => {
 		// Get the exchange rate
 		const rate = data.conversion_rates[currencyTwo];
 		amountTwoElement.value = (amountOne * rate).toFixed(2);
+		rateElement.innerText = `${amountOne} ${currencyOne} = ${(
+			amountOne * rate
+		).toFixed(2)} ${currencyTwo}`;
 	} catch (error) {
 		// Handle any errors
 		console.error('Error:', error);
@@ -40,3 +44,11 @@ fetchData();
 // Add event listeners to currency elements
 currencyOneElement.addEventListener('change', fetchData);
 currencyTwoElement.addEventListener('change', fetchData);
+
+// Add event listener to swap button
+swapElement.addEventListener('click', () => {
+	const temp = currencyOneElement.value;
+	currencyOneElement.value = currencyTwoElement.value;
+	currencyTwoElement.value = temp;
+	fetchData();
+});
