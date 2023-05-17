@@ -64,7 +64,14 @@ input {
 }
 input {
 	width: 150px;
+	/*text-align: right;*/
 	text-align: right;
+	outline: none;
+	border: none;
+}
+input:focus {
+	border: none;
+	outline: none;
 }
 h1 {
 	color: var(--primary-color);
